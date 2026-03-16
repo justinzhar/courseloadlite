@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CourseLoad Lite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── AUTH VIEW ───────────────────────────────────────── -->
+  <div id="view-auth" class="view active">
+    <div class="auth-card">
+      <div class="logo-row">
+        <div class="logo-icon">📚</div>
+        <span class="logo-text">CourseLoad <span class="badge">Lite</span></span>
+      </div>
+
+      <!-- Tab switcher -->
+      <div class="tab-bar">
+        <button class="tab active" id="tab-signin" onclick="switchAuthTab('signin')">Sign In</button>
+        <button class="tab" id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
+      </div>
+
+      <form id="auth-form" onsubmit="handleAuth(event)">
+        <div class="field">
+          <label>Email</label>
+          <input id="auth-email" type="email" placeholder="you@university.edu" required />
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input id="auth-password" type="password" placeholder="••••••••" required />
+        </div>
+        <button class="btn-primary full" type="submit" id="auth-submit-btn">Sign In</button>
+        <p id="auth-error" class="error-msg hidden"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── APP VIEW ────────────────────────────────────────── -->
+  <div id="view-app" class="view">
+
+    <!-- Sidebar nav -->
+    <nav class="sidebar">
+      <div class="nav-logo">
+        <div class="logo-icon sm">📚</div>
+        <span>CourseLoad <span class="badge">Lite</span></span>
+      </div>
+      <button class="nav-item active" id="nav-courses" onclick="showSection('courses')">
+        🎓 <span>Courses</span>
+      </button>
+      <button class="nav-item" id="nav-assignments" onclick="showSection('assignments')">
+        📝 <span>Assignments</span>
+      </button>
+      <div class="nav-spacer"></div>
+      <button class="nav-item signout" onclick="handleSignOut()">↩ Sign Out</button>
+    </nav>
+
+    <!-- Main content -->
+    <main class="main">
+
+      <!-- COURSES SECTION -->
+      <section id="section-courses" class="section active">
+        <div class="section-header">
+          <div>
+            <h1>My Courses</h1>
+            <p class="subtitle">Manage your enrolled courses</p>
+          </div>
+          <button class="btn-primary" onclick="openModal('course')">+ Add Course</button>
+        </div>
+        <div id="courses-grid" class="courses-grid">
+          <div class="loading-msg">Loading courses…</div>
+        </div>
+      </section>
+
+      <!-- ASSIGNMENTS SECTION -->
+      <section id="section-assignments" class="section">
+        <div class="section-header">
+          <div>
+            <h1>Assignments</h1>
+            <p class="subtitle">Track your work</p>
+          </div>
+          <button class="btn-primary" onclick="openModal('assignment')">+ Add Assignment</button>
+        </div>
+
+        <!-- Filter chips -->
+        <div class="filter-row" id="filter-row">
+          <button class="chip active" data-filter="all" onclick="setFilter('all')">All</button>
+          <button class="chip" data-filter="not_started" onclick="setFilter('not_started')">Not Started</button>
+          <button class="chip" data-filter="in_progress" onclick="setFilter('in_progress')">In Progress</button>
+          <button class="chip" data-filter="done" onclick="setFilter('done')">Done</button>
+        </div>
+
+        <div id="assignments-list" class="assignments-list">
+          <div class="loading-msg">Loading assignments…</div>
+        </div>
+      </section>
+
+      <!-- ASSIGNMENT DETAIL SECTION -->
+      <section id="section-assignment-detail" class="section">
+        <div id="assignment-detail-content"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── MODAL ───────────────────────────────────────────── -->
+  <div id="modal-overlay" class="modal-overlay hidden" onclick="handleOverlayClick(event)">
+    <div class="modal" id="modal-box">
+      <div class="modal-header">
+        <h2 id="modal-title">Add Course</h2>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase JS via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
