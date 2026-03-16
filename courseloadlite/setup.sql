@@ -1,8 +1,3 @@
--- ============================================================
--- CourseLoad Lite — Supabase Setup
--- Run this once in your Supabase SQL Editor
--- ============================================================
-
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- ── Tables ───────────────────────────────────────────────────
